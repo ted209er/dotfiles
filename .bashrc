@@ -77,10 +77,14 @@ set bell-style none
 
 shopt -s checkwinsize
 shopt -s expand_aliases
-shopt -s nullglob
-shopt -s globstar
-shopt -s dotglob
-shopt -s extglob
+#shopt -s nullglob
+#shopt -s globstar
+#shopt -s dotglob
+#shopt -s extglob
+
+# Setting Bash Completion
+# enable bash completion in interactive shells
+#source /usr/share/bash-completion/bash_completion
 
 # There really is no reason to *not* use the GNU utilities for your login
 # shell but there are lot of reasons *to* use it. The only time it could
