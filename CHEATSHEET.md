@@ -33,4 +33,30 @@ y # To yank
 p # To paste
 ```
 
+## Git
 
+Generating a new SSH Key pair
+```bash
+ssh-keygen -t ed25519 -C "<comments, e.g. email address>"
+
+# You'll see something similar to:
+Generating public/private ed25519 key pair.
+Enter file in which to save the key (/home/user/.ssh/id_ed25519):
+
+# You can leave the default values and leave the password blank.
+# A new public/private keypair will be generated in your home directory
+# under ~/.ssh/
+```
+
+Adding your private key to the ssh-agent
+
+```bash
+# Start the ssh-agent in the background
+$ eval $(ssh-agent -s)
+> Agent pid 59566
+
+# Add your Private key (the one that doesn't have .pub appended)
+$ ssh-add ~/.ssh/id_ed25519
+
+# Now you can add the public key to your github account.
+```
