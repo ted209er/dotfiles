@@ -33,6 +33,15 @@ y # To yank
 p # To paste
 ```
 
+Delete up till next character (usefull for deleting extra spaces due to
+paste issues):
+
+```bash
+d W 
+# or
+d E
+```
+
 ## Git
 
 Generating a new SSH Key pair
