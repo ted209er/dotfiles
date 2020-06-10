@@ -4,6 +4,9 @@ set nocompatible
 " activate line numbers
 set number
 
+" disable relative line numbers, remove no to sample it
+set norelativenumber
+
 " turn info in tray on even in default
 set ruler
 
@@ -17,9 +20,9 @@ set smarttab
 set autoindent
 
 " easier to see characters when `set paste` is on
-" set listchars=tab:→\ ,eol:↲,nbsp:␣,space:·,trail:·,extends:⟩,precedes:
+set listchars=tab:→\ ,eol:↲,nbsp:␣,space:·,trail:·,extends:⟩,precedes:⟨
 
-" enough for line numbers + gutter within 80
+" enoufh for line numbers + gutter within 80
 set textwidth=73
 
 " more risky, but cleaner
@@ -53,15 +56,35 @@ syntax enable
 filetype plugin on
 
 " Install vim-plug if not already installed
-" if empty(glob('~/.vim/autoload/plug.vim'))
-"   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-"     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"   autocmd VimEnter * PlugInstall
-" endif
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall
+endif
 
 " high contrast
 set background=dark
 colorscheme elflord
+
+" only load plugins if Plug detected
+if filereadable(expand("~/.vim/autoload/plug.vim"))
+  call plug#begin('~/.vimplugins')
+  Plug 'vim-pandoc/vim-pandoc'
+  Plug 'https://gitlab.com/rwxrob/vim-pandoc-syntax-simple'
+  Plug 'cespare/vim-toml'
+  Plug 'pangloss/vim-javascript'
+  Plug 'fatih/vim-go'
+  Plug 'airblade/vim-gitgutter'
+  Plug 'PProvost/vim-ps1'
+  "Plug 'morhetz/gruvbox'
+  call plug#end()
+  let g:go_fmt_fail_silently = 0 " let me out even with errors
+  let g:go_fmt_command = 'goimports' " autoupdate import
+  let g:go_fmt_autosave = 1
+  "set background=dark
+  "colorscheme gruvbox
+else
+  autocmd vimleavepre *.go !gofmt -w % " backup if fatih fails
+endif
 
 " Just the defaults, these are changed per filetype by plugins.
 " Most of the utility of all of this has been superceded by the use of
@@ -83,6 +106,5 @@ set formatoptions-=b   " don't use broken 'vi-compatible auto-wrapping'
 set formatoptions+=l   " long lines not broken in insert mode
 set formatoptions+=m   " multi-byte character line break support
 set formatoptions+=M   " don't add space before or after multi-byte char
-set formatoptions-=B   " don't add space between two multi-byte chars in join
+set formatoptions-=B   " don't add space between two multi-byte chars in join 
 set formatoptions+=1   " don't break a line after a one-letter word
-
