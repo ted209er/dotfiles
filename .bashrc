@@ -31,6 +31,12 @@ $HOME/.node/bin:\
 alias path='echo -e ${PATH//:/\\n}' # human readable path
 alias getcreds='cp /c/Users/thomas.autry/Downloads/credentials ~/.aws/'
 
+# For NVM to work
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh" ] && . "/home/linuxbrew/.linuxbrew/opt/nvm/nvm.sh"
+[ -s "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm" ] && . "/home/linuxbrew/.linuxbrew/opt/nvm/etc/bash_completion.d/nvm"
+
 [ -z "$OS" ] && export OS=`uname`
 case "$OS" in
   Linux)           export PLATFORM=linux;;
