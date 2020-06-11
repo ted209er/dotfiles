@@ -75,6 +75,7 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'fatih/vim-go'
   Plug 'airblade/vim-gitgutter'
   Plug 'PProvost/vim-ps1'
+  Plug 'ycm-core/YouCompleteMe'
   "Plug 'morhetz/gruvbox'
   call plug#end()
   let g:go_fmt_fail_silently = 0 " let me out even with errors
