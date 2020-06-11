@@ -1,14 +1,3 @@
-# .bashrc
-
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
-
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
-
-# User specific aliases and functions
 # shell must be interactive
 case $- in
   *i*) ;;
@@ -20,11 +9,11 @@ unalias -a
 
 # Needed to call docker running on Windows from Bash
 
-# export PATH="$HOME/bin:$HOME/.local/bin"
-# export PATH="$PATH:/mnt/c/Program Files/Docker/Docker/resources/bin"
+export PATH="$HOME/bin:$HOME/.local/bin"
+export PATH="$PATH:/mnt/c/Program Files/Docker/Docker/resources/bin"
 
-# alias docker=docker.exe
-# alias docker-compose=docker-compose.exe
+alias docker=docker.exe
+alias docker-compose=docker-compose.exe
 
 export PATH=\
 $PATH:\
@@ -77,14 +66,10 @@ set bell-style none
 
 shopt -s checkwinsize
 shopt -s expand_aliases
-#shopt -s nullglob
-#shopt -s globstar
-#shopt -s dotglob
-#shopt -s extglob
-
-# Setting Bash Completion
-# enable bash completion in interactive shells
-#source /usr/share/bash-completion/bash_completion
+shopt -s nullglob
+shopt -s globstar
+shopt -s dotglob
+shopt -s extglob
 
 # There really is no reason to *not* use the GNU utilities for your login
 # shell but there are lot of reasons *to* use it. The only time it could
@@ -97,7 +82,7 @@ shopt -s expand_aliases
 if [[ $PLATFORM = mac ]]; then
   if ! havecmd gls; then
     echo 'Need to `brew install coreutils` for Mac to work.'
-  fi
+  fi 
 fi
 
 # Graphic web site shortcuts.
@@ -122,7 +107,7 @@ declare -A sites=(
   [amazon]=amazon.com
 )
 
-for shortcut in "${!sites[@]}"; do
+for shortcut in "${!sites[@]}"; do 
   url=${sites[$shortcut]}
   alias $shortcut="open https://$url &>/dev/null"
 done
@@ -152,7 +137,7 @@ declare -A edits=(
   [spell]=$VIMSPELL
 )
 
-for cmd in "${!edits[@]}"; do
+for cmd in "${!edits[@]}"; do 
   path=${edits[$cmd]}
   case $PLATFORM in
     *) alias $EDITOR_PREFIX$cmd="$EDITOR '$path';warnln 'Make sure you git commit your changes (if needed).'" ;;
@@ -162,7 +147,7 @@ done
 ############################## Markdown-ish ##############################
 
 # Minimal packrat parsing expression grammar (PEG):
-#
+# 
 #   Mark      <- Span* !.
 #   Span      <- Plain / StrongEm / Strong / Emphasis / Link / Code
 #   StrongEm  <- '***' .* '***'
@@ -174,25 +159,26 @@ done
 #   Plain     <- DQUOTE / QUOTE / LARROW / RARROW / ELLIPSIS / .*
 #   DQUOTE    <- '"'
 #   QUOTE     <- "'"
-#   LARROW    <- " <- "
-#   RARROW    <- " -> "
+#   LARROW    <- " <- " 
+#   RARROW    <- " -> " 
 #   ELLIPSIS  <- '...'
-#
+# 
 # There's no character escape support because it isn't needed for most
-# all use cases here.
+# all use cases here. 
 
 export md_strongem=$red     #  ***strongem***
 export md_strong=$yellow    #  **strong**
 export md_emphasis=$magen   #  *emphasis*
 export md_code=$cyan        #  `code`
 export md_plain=''          #  plain
+
 mark () {
   declare inemphasis instrong instrongem incode indquote inquote inlink i
   declare defsol1="$normal"
   declare defsol2="$normalbg"
 
   # Detect default colors (fore, bg) from optional first and
-  # second arguments.
+  # second arguments. 
 
   issol "$1" && defsol1="$1" && shift
   issol "$1" && defsol2="$1" && shift
@@ -207,7 +193,7 @@ mark () {
 
   # recursive descent parser
 
-  for (( i=0; i<${#buf}; i++ )); do
+  for (( i=0; i<${#buf}; i++ )); do 
 
     # ***strongem***
 
@@ -284,7 +270,7 @@ mark () {
       continue
     fi
 
-    # '
+    # ' 
 
     if [[ "${buf:$i:1}" = "'" ]]; then
       if [[ -z "$inquote" ]]; then
@@ -314,13 +300,13 @@ mark () {
     fi
 
     # ...
-
+      
     if [[ "${buf:$i:3}" = '...' ]]; then
       echo -n "…"
       i=$[i+2]
       continue
     fi
-
+  
     # <link>
 
     if [[ "${buf:$i:1}" = '<' ]]; then
@@ -468,7 +454,7 @@ newest () {
 
 listening () {
   case "$PLATFORM" in
-    mac)                                 # TODO rewrite with perg
+    mac)                                 # TODO rewrite with perg 
       netstat -an -ptcp | grep LISTEN
       lsof -i -P | grep -i "listen"
       ;;
@@ -517,3 +503,7 @@ cheat() {
   where="$1"; shift
   IFS=+ curl "http://cht.sh/$where/ $*"
 } && export -f cheat
+
+
+
+export DOCKER_HOST=tcp://localhost:2375
