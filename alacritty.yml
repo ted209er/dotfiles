@@ -26,7 +26,7 @@ window:
 draw_bold_text_with_bright_colors: false
 
 schemes:
-  gruvbox: @gruvbox
+  gruvbox: &gruvbox
     normal:
       black:   '0x282828'
       red:     '0xcc241d'
