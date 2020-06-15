@@ -22,7 +22,7 @@ set autoindent
 " easier to see characters when `set paste` is on
 set listchars=tab:→\ ,eol:↲,nbsp:␣,space:·,trail:·,extends:⟩,precedes:⟨
 
-" enoufh for line numbers + gutter within 80
+" enough for line numbers + gutter within 80
 set textwidth=73
 
 " more risky, but cleaner
@@ -55,6 +55,28 @@ syntax enable
 " allow sensing the filetype
 filetype plugin on
 
+" Enable 'BadWhitespace' highlighting so the below will work
+highlight BadWhitespace ctermbg=red guibg=red
+
+" Flag whitespace when editing python files
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+
+" Ensures that auto complete window goes away once you're done with it
+let g:ycm_autoclose_preview_window_after_completion=1
+
+" Shortcut for go to definition
+map <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
+" Python Virtual Environment Support
+python3 << EOF
+import os
+import sys
+if 'VIRTUAL_ENV' in os.environ:
+  project_base_dir = os.environ['VIRTUAL_ENV']
+  activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+  execfile(activate_this, dict(__file__=activate_this))
+EOF
+
 " Install vim-plug if not already installed
 if empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -62,8 +84,18 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 " high contrast
-set background=dark
+" set background=dark
 colorscheme elflord
+
+" For solarized plugin
+" let g:solarized_termcolors=256
+" colorscheme solarized
+
+if has('gui_running')
+  set background=light
+else
+  set background=dark
+endif
 
 " only load plugins if Plug detected
 if filereadable(expand("~/.vim/autoload/plug.vim"))
@@ -76,7 +108,14 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
   Plug 'airblade/vim-gitgutter'
   Plug 'PProvost/vim-ps1'
   Plug 'ycm-core/YouCompleteMe'
-  "Plug 'morhetz/gruvbox'
+  Plug 'vim-syntastic/syntastic'
+  Plug 'nvie/vim-flake8'
+  Plug 'jnurmine/Zenburn'
+  Plug 'altercation/vim-colors-solarized'
+  Plug 'morhetz/gruvbox'
+  Plug 'vim-scripts/indentpython.vim'
+  Plug 'preservim/nerdtree'
+  Plug 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim/'}
   call plug#end()
   let g:go_fmt_fail_silently = 0 " let me out even with errors
   let g:go_fmt_command = 'goimports' " autoupdate import
@@ -86,6 +125,13 @@ if filereadable(expand("~/.vim/autoload/plug.vim"))
 else
   autocmd vimleavepre *.go !gofmt -w % " backup if fatih fails
 endif
+
+" Powerline
+python3 from powerline.vim import setup as powerline_setup
+python3 powerline_setup()
+python3 del powerline_setup
+
+set laststatus=2
 
 " Just the defaults, these are changed per filetype by plugins.
 " Most of the utility of all of this has been superceded by the use of

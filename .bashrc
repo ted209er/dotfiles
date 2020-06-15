@@ -12,8 +12,8 @@ unalias -a
 export PATH="$HOME/bin:$HOME/.local/bin"
 export PATH="$PATH:/mnt/c/Program Files/Docker/Docker/resources/bin"
 
-alias docker=docker.exe
-alias docker-compose=docker-compose.exe
+# alias docker=docker.exe
+# alias docker-compose=docker-compose.exe
 
 export PATH=\
 $PATH:\
@@ -30,6 +30,7 @@ $HOME/.node/bin:\
 
 alias path='echo -e ${PATH//:/\\n}' # human readable path
 alias getcreds='cp /c/Users/thomas.autry/Downloads/credentials ~/.aws/'
+
 
 # For NVM to work
 
@@ -123,6 +124,7 @@ alias '??'=google
 
 ############################# Edit Shortcuts #############################
 
+export python=python3
 export EDITOR=vi
 export VISUAL=vi
 export EDITOR_PREFIX=vi
@@ -511,5 +513,11 @@ cheat() {
 } && export -f cheat
 
 
+# For Powerline to work
+if [ -f /usr/share/powerline/bindings/bash/powerline.sh ]; then
+  powerline-daemon -q
+  POWERLINE_BASH_CONTINUATION=1
+  POWERLINE_BASH_SELECT=1
+  source /usr/share/powerline/bindings/bash/powerline.sh
+fi
 
-export DOCKER_HOST=tcp://localhost:2375
