@@ -33,7 +33,7 @@ y # To yank
 p # To paste
 ```
 
-#### Delete up till next character (usefull for deleting extra spaces due to
+#### Delete up till next character (useful for deleting extra spaces due to
 paste issues):
 
 ```bash
@@ -54,7 +54,7 @@ S
 %
 ```
 
-#### Indent or unindent a line
+#### Indent or un-indent a line
 
 ```bash
 >> #Indents

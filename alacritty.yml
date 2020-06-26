@@ -1,20 +1,20 @@
 env:
   TERM: xterm-256color
 
-window:
-  dynamic_padding: false
-  decorations: none
-  startup_mode: Fullscreen
+# window:
+#   dynamic_padding: false
+#   decorations: none
+#   startup_mode: Fullscreen
 
 # tabspaces: 2
 
-# font:
-#   normal:
-#     family: "UbuntuMono Nerd Font Mono"
-#   bold:
-#     family: "UbuntuMono Nerd Font Mono"
-#   italic:
-#     family: "Ubuntu Mono Nerd Font"
+font:
+  normal:
+    family: "DejaVu Sans Mono for Powerline"
+  bold:
+    family: "DejaVu Sans Mono Bold for Powerline"
+  italic:
+    family: "DejaVu Sans Mono Oblique for Powerline"
 #   size: 70.0
 #   offset:
 #     x: 0
